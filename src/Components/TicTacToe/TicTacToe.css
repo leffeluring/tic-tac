@@ -76,9 +76,12 @@
     animation: fadeIn 0.25s ease-in-out;
 }
 .x-square {
-    background-image: url("../Assets/cross.png");
+    background-image: url("../Assets/beer.png");
     background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
+    padding: 25px;
+    background-origin: content-box;
 }
 
 .o-square {
@@ -86,4 +89,5 @@
     background-size: contain;
     padding:20px;
     background-repeat: no-repeat;
+    background-origin: content-box;
 }
