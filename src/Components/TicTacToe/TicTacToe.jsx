@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TicTacToe.css';
-import circle_icon from '../Assets/circle.png';
+import circle_icon from '../Assets/jocke.png';
 import cross_icon from '../Assets/cross.png';
 
 export const TicTacToe = () => {
@@ -82,7 +82,7 @@ export const TicTacToe = () => {
 
     return (
         <div className='container'>
-            <h1 className='title'>Tic Tac <span>React</span></h1>
+            <h1 className='title'>Tic Tac <span>Jocke</span></h1>
             <h1 className='title'>{headingText}</h1>
             <div className='board'>
                 {[0, 1, 2].map((row) => (
