@@ -9,6 +9,8 @@ export const TicTacToe = () => {
     const [boardData, setBoardData] = useState(Array(9).fill(""));
     const [currentPlayer, setCurrentPlayer] = useState("X");
     const [winner, setWinner] = useState(null);
+    const [playerXWins, setPlayerXWins] = useState(0);
+    const [playerOWins, setPlayerOWins] = useState(0);
 
     useEffect(() => {
         checkWinner();
@@ -44,10 +46,15 @@ export const TicTacToe = () => {
             const [a, b, c] = combo;
             if (boardData[a] && boardData[a] === boardData[b] && boardData[a] === boardData[c]) {
                 setWinner(boardData[a]);
+                if (boardData[a] === "X") {
+                    setPlayerXWins(playerXWins + 1);
+                } else {
+                    setPlayerOWins(playerOWins + 1);
+                }
                 return;
             }
         }
-
+        
         if (count === 9) {
             setWinner("Draw");
         }
@@ -75,22 +82,26 @@ export const TicTacToe = () => {
 
     return (
         <div className='container'>
-            <h1 className='title'>Tic Tac Toe Game in <span>React</span></h1>
+            <h1 className='title'>Tic Tac <span>React</span></h1>
             <h1 className='title'>{headingText}</h1>
-
             <div className='board'>
                 {[0, 1, 2].map((row) => (
                     <div key={row} className={`row${row + 1}`}>
                         {[0, 1, 2].map((col) => (
                             <div key={col} className="boxes" onClick={() => toggle(row * 3 + col)}>
-                                {boardData[row * 3 + col] === "X" && <img src={cross_icon} alt="cross" />}
-                                {boardData[row * 3 + col] === "O" && <img src={circle_icon} alt="circle" />}
+                                {boardData[row * 3 + col] === "X" && <img src={cross_icon} alt="cross" className="animate" />}
+                                {boardData[row * 3 + col] === "O" && <img src={circle_icon} alt="circle" className="animate" />}
                             </div>
                         ))}
                     </div>
                 ))}
             </div>
+                        <div className='stats'>
+                <p>Player X Wins: {playerXWins}</p>
+                <p>Player O Wins: {playerOWins}</p>
+            </div>
             <button className='reset' onClick={resetGame}>Reset</button>
+            
        </div>
     );
 };
