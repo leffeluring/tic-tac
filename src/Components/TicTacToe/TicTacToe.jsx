@@ -14,18 +14,116 @@ export const TicTacToe = () => {
 
     useEffect(() => {
         checkWinner();
-    }, [boardData]);
+        if (currentPlayer === 'O') {
+            // If it's AI's turn, let the AI make a move
+            makeAIMove();
+        }
+    }, [boardData, currentPlayer]); // Trigger when the board data or current player changes
 
     const toggle = (index) => {
         if (lock) {
             return;
         }
-        if (boardData[index] === "" && !winner) {
+        if (boardData[index] === "" && !winner && currentPlayer === "X") {
             const newData = [...boardData];
             newData[index] = currentPlayer;
             setBoardData(newData);
             setCount(count + 1);
-            setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+            setCurrentPlayer("O"); // Change to human player's turn
+        }
+    };
+
+
+    const resetGame = () => {
+        setBoardData(Array(9).fill(""));
+        setCount(0);
+        setCurrentPlayer("X");
+        setWinner(null);
+        setLock(false);
+    };
+
+    const playerImages = {
+        "X": cross_icon,
+        "O": circle_icon
+    };
+
+    const makeAIMove = () => {
+        // Implement AI move logic here
+        const bestMoveIndex = findBestMove(boardData, currentPlayer);
+        const newData = [...boardData];
+        newData[bestMoveIndex] = currentPlayer;
+        setBoardData(newData);
+        setCount(count + 1);
+        setCurrentPlayer("X"); // Change back to AI's turn
+    };
+
+    const findBestMove = (board, player) => {
+        let bestScore = -Infinity;
+        let bestMove;
+
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === "") {
+                // Make a move
+                board[i] = player;
+
+                // Calculate the score for this move
+                const score = minimax(board, 0, false, -Infinity, Infinity, player === "X" ? "O" : "X");
+
+                // Undo the move
+                board[i] = "";
+
+                // Update the best move if this move gives a better score
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return bestMove;
+    };
+
+    const minimax = (board, depth, isMaximizing, alpha, beta, player) => {
+        const result = checkWinner(board);
+        if (result !== null) {
+            if (result === "X") {
+                return 10 - depth;
+            } else if (result === "O") {
+                return depth - 10;
+            }
+            return 0;
+        }
+
+        if (isMaximizing) {
+            let maxScore = -Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === "") {
+                    board[i] = player;
+                    const score = minimax(board, depth + 1, false, alpha, beta, player === "X" ? "O" : "X");
+                    board[i] = "";
+                    maxScore = Math.max(maxScore, score);
+                    alpha = Math.max(alpha, score);
+                    if (beta <= alpha) {
+                        break;
+                    }
+                }
+            }
+            return maxScore;
+        } else {
+            let minScore = Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === "") {
+                    board[i] = player;
+                    const score = minimax(board, depth + 1, true, alpha, beta, player === "X" ? "O" : "X");
+                    board[i] = "";
+                    minScore = Math.min(minScore, score);
+                    beta = Math.min(beta, score);
+                    if (beta <= alpha) {
+                        break;
+                    }
+                }
+            }
+            return minScore;
         }
     };
 
@@ -41,36 +139,19 @@ export const TicTacToe = () => {
             [0, 4, 8],
             [2, 4, 6]
         ];
-
+    
         for (let combo of winningCombos) {
             const [a, b, c] = combo;
             if (boardData[a] && boardData[a] === boardData[b] && boardData[a] === boardData[c]) {
-                setWinner(boardData[a]);
-                if (boardData[a] === "X") {
-                    setPlayerXWins(playerXWins + 1);
-                } else {
-                    setPlayerOWins(playerOWins + 1);
-                }
-                return;
+                return boardData[a];
             }
         }
         
-        if (count === 9) {
-            setWinner("Draw");
+        if (!boardData.includes("")) {
+            return "Draw";
         }
-    };
-
-    const resetGame = () => {
-        setBoardData(Array(9).fill(""));
-        setCount(0);
-        setCurrentPlayer("X");
-        setWinner(null);
-        setLock(false);
-    };
-
-    const playerImages = {
-        "X": cross_icon,
-        "O": circle_icon
+    
+        return null;
     };
 
     let headingText;
@@ -96,7 +177,7 @@ export const TicTacToe = () => {
                     </div>
                 ))}
             </div>
-                        <div className='stats'>
+            <div className='stats'>
                 <p>Player X Wins: {playerXWins}</p>
                 <p>Player O Wins: {playerOWins}</p>
             </div>
