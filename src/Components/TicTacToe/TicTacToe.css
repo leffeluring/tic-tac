@@ -31,7 +31,7 @@
     margin-top: 25px;
     margin-bottom: 50px;
 }
-.boxes {
+.square {
     display: flex;
     height: 180px;
     width: 180px;
@@ -46,7 +46,7 @@
     margin:auto;
     flex: 1;
 }
-.boxes img {
+.square img {
     margin: 50px 50px;
 }
 .title img {
@@ -74,4 +74,16 @@
 
 .animate {
     animation: fadeIn 0.25s ease-in-out;
+}
+.x-square {
+    background-image: url("../Assets/cross.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.o-square {
+    background-image: url("../Assets/jocke.png");
+    background-size: contain;
+    padding:20px;
+    background-repeat: no-repeat;
 }
