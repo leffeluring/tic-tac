@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import './TicTacToe.css';
 import circle_icon from '../Assets/jocke.png';
-import cross_icon from '../Assets/beer.png';
+import cross_icon from '../Assets/cross.png';
 
 
 function Square({ value, onClick }) {
     let squareClass = "square";
     let squareContent = value;
-    if (value === 'Øl') {
+    if (value === 'X') {
         squareClass += " x-square";
-    } else if (value === 'Jocke') {
+    } else if (value === 'O') {
         squareClass += " o-square";
     }
     return (
@@ -27,7 +27,7 @@ function TicTacToe() {
   const handleClick = (index) => {
     if (winner || squares[index]) return;
     const newSquares = [...squares];
-    newSquares[index] = xIsNext ? 'Øl' : 'Jocke';
+    newSquares[index] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
     setWinner(calculateWinner(newSquares));
@@ -47,7 +47,7 @@ function TicTacToe() {
     }, 500); // Delay AI move for better user experience
   }
 
-  const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'Øl' : 'Jocke'}`;
+  const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   return (
     <div className='container'>
