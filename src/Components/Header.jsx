@@ -11,12 +11,12 @@ const Header = ({ pageTitle }) => {
     switch (location.pathname) {
       case '/':
         return 'Tic Tac Jocke';
-      case '/about':
-        return 'About';
+      case '/fisk':
+        return 'Bartender till Jocke';
       case '/contact':
         return 'Contact';
       default:
-        return 'Your App Name';
+        return 'Jockesnekula';
     }
   };
   
@@ -25,8 +25,8 @@ const Header = ({ pageTitle }) => {
       <h1  className='title'>{pageTitle || getTitle()}</h1>
       <nav>
       <ul className="header-nav">
-          <li><Link to="/">Tic Tac Toe</Link></li>
-          <li><Link to="/fisk">Jocke fisk</Link></li>
+          <li><Link to="/">Tic Tac</Link></li>
+          <li><Link to="/fisk">Jocke vill ha öl</Link></li>
           <li><Link to="/test">Rullebör</Link></li>
         </ul>
       </nav>

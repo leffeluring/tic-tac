@@ -26,6 +26,7 @@ function TicTacToe() {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   const [isAITurn, setIsAITurn] = useState(false); // Track AI's turn
+  
 
 
   const handleClick = (index) => {
@@ -47,6 +48,8 @@ function TicTacToe() {
   };
 
 
+
+
   useEffect(() => {
     if (!xIsNext && !winner && isAITurn) {
         setTimeout(() => {
@@ -62,14 +65,20 @@ function TicTacToe() {
 }, [xIsNext, winner, isAITurn, squares]); // Run effect whenever relevant state changes
 
 
-  const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
-
+let status;
+if (winner === 'X') {
+    status = 'Du vann';
+} else if (winner === 'O') {
+    status = 'All your beer belong to us';
+} else {
+    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+}
   return (
     <div className='container'>
-    <h1 className='title'>Tic Tac <span>Jocke</span></h1>
     <div className="tictactoe">
     <div className="title">{status}</div>
     <div className="board">
+
         {[0, 1, 2].map(row => (
             <div key={row} className="board-row">
                 {[0, 1, 2].map(col => {

@@ -1,0 +1,53 @@
+.container {
+    text-align: center;
+}
+.container-box {
+    display: flex;
+    width:80%;
+    margin:auto;
+}
+.jocke {
+    width:200px;
+    margin:auto;
+}
+.talk-bubble {
+    color:black;
+    margin: 20px;
+    bottom: 50px;
+    right: -50px;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-right: 20px solid white;
+    border-bottom: 20px solid transparent;
+    background:white;
+    width: 300px;
+    margin: auto;
+    margin-bottom: 25px;
+    p {
+        margin-top: -34px;
+    margin-left: 50px;
+    }
+  }
+  
+  .tri-right.border:before {
+    content: '';
+    width: 0;
+    height: 0;
+    right: -19px;
+    bottom: -20px;
+    border-top: 20px solid transparent;
+    border-right: 20px solid white;
+    border-bottom: 20px solid transparent;
+    border-right-color: inherit;
+    pointer-events: none;
+  }
+  
+  
+  .round {
+    border-radius: 12px;
+  }
+  
+  .talktext {
+    color:White;
+    padding: 10px;
+  }

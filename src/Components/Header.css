@@ -16,6 +16,8 @@
     display: inline;
     margin-right: 10px;
     color: white;
+
+
     
     a {
         color: white;
@@ -23,5 +25,11 @@
         text-decoration:none;
         text-transform: uppercase;
         font-weight: 600;
+        padding:15px !important;
+        border:1px solid white;
+    }
+    a:hover {
+      color:black;
+      background:white;
     }
   }
