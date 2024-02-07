@@ -1,0 +1,27 @@
+.title {
+    margin-top: 50px;
+    color: white;
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header-nav {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .header-nav li {
+    display: inline;
+    margin-right: 10px;
+    color: white;
+    
+    a {
+        color: white;
+        font-size:18px;
+        text-decoration:none;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+  }
