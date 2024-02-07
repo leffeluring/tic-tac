@@ -1,37 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TicTacToe.css';
 import circle_icon from '../Assets/jocke.png';
 import cross_icon from '../Assets/cross.png';
 
 
 function Square({ value, onClick }) {
-    let squareClass = "square";
-    let squareContent = value;
-    if (value === 'X') {
-        squareClass += " x-square";
-    } else if (value === 'O') {
-        squareClass += " o-square";
-    }
-    return (
-        <button className={squareClass} onClick={onClick}>
-            {squareContent}
-        </button>
-    );
+  let squareClass = "square";
+  let squareContent = null;
+  if (value === 'X') {
+      squareClass += " x-square animate";
+      squareContent = <img src={cross_icon} alt="X" />;
+  } else if (value === 'O') {
+      squareClass += " o-square animate";
+      squareContent = <img src={circle_icon} width="80px" alt="O" />;
+  }
+  return (
+      <button className={squareClass} onClick={onClick}>
+          {squareContent}
+      </button>
+  );
 }
 
 function TicTacToe() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
+  const [isAITurn, setIsAITurn] = useState(false); // Track AI's turn
+
 
   const handleClick = (index) => {
-    if (winner || squares[index]) return;
+    if (winner || squares[index] || isAITurn) return; // Do not allow clicks during AI's turn
     const newSquares = [...squares];
     newSquares[index] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
     setWinner(calculateWinner(newSquares));
-  };
+    setIsAITurn(true); // Set AI's turn after user's turn
+};
+
+
 
   const handleRestart = () => {
     setSquares(Array(9).fill(null));
@@ -39,13 +46,21 @@ function TicTacToe() {
     setWinner(null);
   };
 
-  // AI's turn
-  if (!xIsNext && !winner) {
-    const bestMove = findBestMove(squares);
-    setTimeout(() => {
-      handleClick(bestMove);
-    }, 500); // Delay AI move for better user experience
-  }
+
+  useEffect(() => {
+    if (!xIsNext && !winner && isAITurn) {
+        setTimeout(() => {
+            const bestMove = findBestMove(squares);
+            const newSquares = [...squares];
+            newSquares[bestMove] = 'O'; // Make AI move
+            setSquares(newSquares);
+            setXIsNext(true); // Set next turn to player's turn
+            setWinner(calculateWinner(newSquares));
+            setIsAITurn(false); // Set user's turn after AI's turn
+        }, 250); // Delay AI move for better user experience
+    }
+}, [xIsNext, winner, isAITurn, squares]); // Run effect whenever relevant state changes
+
 
   const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
@@ -64,6 +79,7 @@ function TicTacToe() {
                             key={index}
                             value={squares[index]}
                             onClick={() => handleClick(index)}
+                            disabled={isAITurn} // Disable square during AI's turn
                         />
                     );
                 })}

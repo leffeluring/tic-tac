@@ -76,18 +76,14 @@
     animation: fadeIn 0.25s ease-in-out;
 }
 .x-square {
-    background-image: url("../Assets/beer.png");
-    background-size: contain;
+    background: #142128;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 25px;
     background-origin: content-box;
 }
 
 .o-square {
-    background-image: url("../Assets/jocke.png");
-    background-size: contain;
-    padding:20px;
+    background: #142128;
     background-repeat: no-repeat;
     background-origin: content-box;
 }
