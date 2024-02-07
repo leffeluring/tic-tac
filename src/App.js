@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import Home from './Home';
-import Fisk from './Fisk';
+import Fisk from './Components/Pages/Fisk';
 
 
 
