@@ -6,7 +6,7 @@ import './Fisk.css';
 import Notification from '../Notification';
 
 function Fisk() {
-  const [cookies, setCookies] = useState(1000);
+  const [cookies, setCookies] = useState(0);
   const [cookiesPerMinute, setCookiesPerMinute] = useState(0);
   const [clickValue, setClickValue] = useState(1);
   const [autoClickValue, setAutoClickValue] = useState(0);

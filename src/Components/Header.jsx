@@ -1,6 +1,9 @@
 import React from 'react';
 import './Header.css';
 import { Link, useLocation } from 'react-router-dom';
+import CountdownTimer from './Countdown/countdown'; // Adjust the import path as necessary
+
+const targetDate = '2024-02-08T22:00:00';
 
 
 const Header = ({ pageTitle }) => {
@@ -22,6 +25,7 @@ const Header = ({ pageTitle }) => {
   
   return (
     <header>
+        <CountdownTimer targetDate={targetDate} />
       <h1  className='title'>{pageTitle || getTitle()}</h1>
       <nav>
       <ul className="header-nav">
@@ -35,3 +39,6 @@ const Header = ({ pageTitle }) => {
 }
 
 export default Header;
+
+
+

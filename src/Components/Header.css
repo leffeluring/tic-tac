@@ -11,6 +11,22 @@
     padding: 0;
     text-align: center;
   }
+  .title-hossa {
+    margin:0px !important;
+}
+.countdown-hossa {
+  justify-content: center;
+  align-items: center;
+    color:black;
+    span {
+      font-size:40px;
+      font-weight:900;
+    }
+  }
+  .hossa-stream {
+    background-color: #26ffcb;
+    text-align:center;
+  }
   
   .header-nav li {
     display: inline;
