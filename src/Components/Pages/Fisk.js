@@ -4,6 +4,12 @@ import Image from '../Assets/jocke.png';
 import Beer from '../Assets/beer.png';
 import './Fisk.css';
 import Notification from '../Notification';
+import AchievementTracker from './AchievmentTracker.js'; // Import the new component
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function Fisk() {
   const [cookies, setCookies] = useState(0);
@@ -12,6 +18,17 @@ function Fisk() {
   const [autoClickValue, setAutoClickValue] = useState(0);
   const [clicks, setClicks] = useState([]);
   const [autoClickers, setAutoClickers] = useState([]);
+  const [achievements, setAchievements] = useState([]);
+
+
+  const handleNewAchievement = (newAchievements) => {
+    // Handle new achievements (e.g., display a notification)
+    newAchievements.forEach(achievement => {
+      alert(`Achievement Unlocked: ${achievement}`); // Replace this with a more sophisticated notification mechanism
+    });
+    setAchievements(prev => [...prev, ...newAchievements]);
+  };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -70,6 +87,7 @@ function Fisk() {
           Öl per sekund: <span>{cookiesPerMinute}</span>
         </p>
         <Notification value={cookiesPerMinute} />
+
         <img
         draggable="false" // Set draggable attribute to true
           className="jocke"
@@ -112,6 +130,12 @@ function Fisk() {
       <a className="give-up" target="_blank" href="https://www.aa.se/#:~:text=Om%20Anonyma%20Alkoholister,en%20%C3%B6nskan%20att%20sluta%20dricka.">
         Ge upp och håll kväll
         </a>
+        <AchievementTracker 
+        cookies={cookies} 
+        autoClickers={autoClickers.length} 
+        onNewAchievement={handleNewAchievement} 
+      />
+      <ToastContainer />
     </div>
   );
 }
